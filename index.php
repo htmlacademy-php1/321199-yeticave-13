@@ -1,6 +1,5 @@
 <?php
 $is_auth = rand(0, 1);
-
 $user_name = 'Виталий'; // укажите здесь ваше имя
 $categories = ['Доски и лыжи', 'Крепления', 'Ботинки', 'Одежда', 'Инструменты', 'Разное'];
 $advertisement = [
@@ -10,7 +9,16 @@ $advertisement = [
     ["name" => 'Ботинки для сноуборда DC Mutiny Charocal', "category" => 'Ботинки', "price"=>'10999', "img"=>'img/lot-4.jpg'],
     ["name" => 'Куртка для сноуборда DC Mutiny Charocal', "category" => 'Одежда', "price"=>'7500', "img"=>'img/lot-5.jpg'],
     ["name" => 'Маска Oakley Canopy', "category" => 'Разное', "price"=>'5400', "img"=>'img/lot-6.jpg']
-]
+];
+function formatSumm(int $number){
+    $round_numb=ceil($number);
+    if($round_numb<1000){
+        return $round_numb;
+    }else{
+        $finish_price = number_format($round_numb, 0, '', ' ') . ' ₽';
+        return $finish_price;
+    }
+};
 ?>
 <!DOCTYPE html>
 <html lang="ru">
@@ -24,6 +32,7 @@ $advertisement = [
 <div class="page-wrapper">
 
 <header class="main-header">
+
     <div class="main-header__container container">
         <h1 class="visually-hidden">YetiCave</h1>
         <a class="main-header__logo">
@@ -36,13 +45,13 @@ $advertisement = [
         <a class="main-header__add-lot button" href="pages/add-lot.html">Добавить лот</a>
 
         <nav class="user-menu">
-            <?if ($is_auth){?>
+            <?if ($is_auth):?>
                 <div class="user-menu__logged">
                     <p><?=$user_name?></p>
                     <a class="user-menu__bets" href="pages/my-bets.html">Мои ставки</a>
                     <a class="user-menu__logout" href="#">Выход</a>
                 </div>
-            <?}else{?>
+            <?else:?>
                 <ul class="user-menu__list">
                   <li class="user-menu__item">
                     <a href="#">Регистрация</a>
@@ -51,7 +60,7 @@ $advertisement = [
                     <a href="#">Вход</a>
                   </li>
                 </ul>
-            <?}?>
+            <?endif?>
         <!-- здесь должен быть PHP код для показа меню и данных пользователя -->
 
         </nav>
@@ -99,12 +108,13 @@ $advertisement = [
                     </h3>
                     <div class="lot__state">
                         <div class="lot__rate">
-                            <span class="lot__amount">Стартовая цена</span>
-                            <span class="lot__cost">
+                            <span class="lot__amount">
                                 <?if (isset($ad['price'])) :?>
                                     <?=$ad['price']?>
                                 <?endif?>
-                                <b class="rub">р</b>
+                            </span>
+                            <span class="lot__cost">
+                                 <?=formatSumm(1200);?>
                             </span>
                         </div>
                         <div class="lot__timer timer">
