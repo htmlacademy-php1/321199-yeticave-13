@@ -7,6 +7,7 @@
     <link href="../css/style.css" rel="stylesheet">
 </head>
 <body>
+
 <div class="page-wrapper">
 
     <header class="main-header">
@@ -42,6 +43,7 @@
                 <!-- здесь должен быть PHP код для показа меню и данных пользователя -->
             </nav>
         </div>
+
     </header>
 
     <main class="container">
@@ -55,7 +57,7 @@
             <!--заполните этот список из массива категорий-->
             <?php foreach ($categories as $category): ?>
                 <li class="nav__item">
-                    <a href="pages/all-lots.html"><?= strip_tags($category) ?></a>
+                    <a href="pages/all-lots.html"><?= xssAdg($category) ?></a>
                 </li>
             <? endforeach; ?>
         </ul>
