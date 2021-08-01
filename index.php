@@ -1,13 +1,13 @@
 <?php
 
-    require_once('helpers.php');
-    require_once('db.php');
-    require_once('functions.php');
+    require_once( 'helpers.php' );
+    require_once( 'db.php' );
+    require_once( 'functions.php' );
 
-    $is_auth = rand(0, 1);
+    $is_auth = rand( 0, 1 );
     $user_name = 'Виталий';
 
-    $main = include_template('main.php', compact('categories', 'advertisement'));
+    $main = include_template( 'main.php', compact( 'categories', 'advertisement' ) );
 
     $layout_content = include_template(
         'layout.php',
@@ -20,4 +20,4 @@
         ]
     );
 
-    print($layout_content);
+    print( $layout_content );
