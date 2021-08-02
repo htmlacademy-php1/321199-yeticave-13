@@ -8,7 +8,7 @@
             'category' => 'Доски и лыжи',
             'price' => '10999',
             'img' => 'img/lot-1.jpg',
-            'data' => '2021-08-02 12:05'
+            'data' => '2021-08-02 23:08'
         ],
         [
             'name' => 'DC Ply  Mens 2016/2017 Snowboard',

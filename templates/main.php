@@ -45,16 +45,13 @@
                         </div>
 
                         <?php $range = get_dt_range( xssAdg( $ad['data'] ) );
-                            if ( (int) $range[0] == 0 && (int) $range[1] <= 60 ): ?>
+                            if ( $range[0] == 0 && $range[1] <= 60 ): ?>
                                 <div class="lot__timer timer timer--finishing">
-                                    <?= $range[0] . ':' . $range[1] ?>
-                                </div>
                             <?php else: ?>
-                                <div class="lot__timer timer ">
-                                    <?= $range[0] . ':' . $range[1] ?>
-                                </div>
+                                <div class="lot__timer timer">
                             <?php endif ?>
-
+                                    <?= str_pad( $range[0], 2, "0", STR_PAD_LEFT ) . ':' . str_pad( $range[1],2, "0", STR_PAD_LEFT ) ?>
+                                </div>
                     </div>
                 </div>
             </li>
