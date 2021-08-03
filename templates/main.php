@@ -5,9 +5,9 @@
     </p>
     <ul class="promo__list">
         <!--заполните этот список из массива категорий-->
-        <?php foreach ($categories as $category): ?>
+        <?php foreach ( $categories as $category ): ?>
             <li class="promo__item promo__item--boards">
-                <a class="promo__link" href="pages/all-lots.html"><?= xssAdg($category) ?></a>
+                <a class="promo__link" href="pages/all-lots.html"><?= xssAdg( $category ) ?></a>
             </li>
         <? endforeach; ?>
     </ul>
@@ -18,7 +18,7 @@
     </div>
     <ul class="lots__list">
         <!--заполните этот список из массива с товарами-->
-        <?php foreach ($advertisement as $k => $ad): ?>
+        <?php foreach ( $advertisement as $k => $ad ): ?>
             <li class="lots__item lot">
                 <div class="lot__image">
                     <img src="<?= $ad['img'] ?? '' ?>"
@@ -26,25 +26,32 @@
                 </div>
                 <div class="lot__info">
                     <span class="lot__category">
-                            <?= isset($ad['category']) ? xssAdg($ad['category']) : '' ?>
+                            <?= isset( $ad['category'] ) ? xssAdg( $ad['category'] ) : '' ?>
                     </span>
                     <h3 class="lot__title">
                         <a class="text-link" href="pages/lot.html">
-                            <?= isset($ad['name']) ? xssAdg($ad['name']) : '' ?>
+                            <?= isset( $ad['name'] ) ? xssAdg( $ad['name'] ) : '' ?>
                         </a>
                     </h3>
                     <div class="lot__state">
+
                         <div class="lot__rate">
                             <span class="lot__amount">
-                                <?= isset($ad['price']) ? xssAdg($ad['price']) : 'По запросу' ?>
+                                <?= isset( $ad['price'] ) ? xssAdg( $ad['price'] ) : 'По запросу' ?>
                             </span>
                             <span class="lot__cost">
-                                <?= formatSumm(3412245.34); ?>
+                                <?= formatSumm( 3412245.34 ) ?>
                             </span>
                         </div>
-                        <div class="lot__timer timer">
-                            12:23
-                        </div>
+
+                        <?php $range = get_dt_range( xssAdg( $ad['data'] ) );
+                            if ( $range[0] == 0 && $range[1] <= 60 ): ?>
+                                <div class="lot__timer timer timer--finishing">
+                            <?php else: ?>
+                                <div class="lot__timer timer">
+                            <?php endif ?>
+                                    <?= str_pad( $range[0], 2, "0", STR_PAD_LEFT ) . ':' . str_pad( $range[1],2, "0", STR_PAD_LEFT ) ?>
+                                </div>
                     </div>
                 </div>
             </li>
