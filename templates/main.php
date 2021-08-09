@@ -30,7 +30,7 @@
                     </span>
                     <h3 class="lot__title">
                         <a class="text-link" href="pages/lot.html">
-                            <?= isset( $ad['name'] ) ? xssAdg( $ad['name'] ) : '' ?>
+                            <?= isset( $ad['title'] ) ? xssAdg( $ad['title'] ) : '' ?>
                         </a>
                     </h3>
                     <div class="lot__state">
