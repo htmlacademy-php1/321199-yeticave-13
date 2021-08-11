@@ -1,4 +1,4 @@
-CREATE DATABASE YETICAVE DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+# CREATE DATABASE YETICAVE DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 
 CREATE TABLE category (
                         id         INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -25,6 +25,7 @@ CREATE TABLE lot (
                    title        CHAR(128)                           NOT NULL,
                    description  TEXT,
                    img          CHAR(128)                           NOT NULL,
+                   price        DECIMAL                             NOT NULL,
                    start_price  DECIMAL                             NOT NULL,
                    completed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
                    bet_step     INT UNSIGNED                        NOT NULL,
