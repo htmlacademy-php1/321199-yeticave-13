@@ -1,6 +1,6 @@
-# CREATE DATABASE YETICAVE DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+#CREATE DATABASE YETICAVE DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 
-CREATE TABLE category (
+CREATE TABLE categories (
                         id         INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                         title      CHAR(128)    NOT NULL UNIQUE,
                         code       CHAR(60)     NOT NULL UNIQUE,
@@ -8,7 +8,7 @@ CREATE TABLE category (
                         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
                       );
 
-CREATE TABLE user (
+CREATE TABLE users (
                     id         INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                     email      CHAR(128)    NOT NULL UNIQUE,
                     name       CHAR(128)    NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE user (
                     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
                   );
 
-CREATE TABLE lot (
+CREATE TABLE lots (
                    id           INT UNSIGNED                        NOT NULL AUTO_INCREMENT PRIMARY KEY,
                    user_id      INT UNSIGNED                        NOT NULL,
                    category_id  INT UNSIGNED                        NOT NULL,
@@ -31,24 +31,22 @@ CREATE TABLE lot (
                    bet_step     INT UNSIGNED                        NOT NULL,
                    created_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                    updated_at   TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                   FOREIGN KEY (user_id) REFERENCES user (id),
-                   FOREIGN KEY (category_id) REFERENCES category (id)
+                   FOREIGN KEY (user_id) REFERENCES users (id),
+                   FOREIGN KEY (category_id) REFERENCES categories (id)
                  );
 
-CREATE TABLE bet (
+CREATE TABLE bids (
                    id         INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
                    user_id    INT UNSIGNED NOT NULL,
                    lot_id     INT UNSIGNED NOT NULL,
                    total      DECIMAL,
                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                   FOREIGN KEY (user_id) REFERENCES user (id),
-                   FOREIGN KEY (lot_id) REFERENCES lot (id)
+                   FOREIGN KEY (user_id) REFERENCES users (id),
+                   FOREIGN KEY (lot_id) REFERENCES lots(id)
                  );
 
-CREATE INDEX index_category_name ON category (title);
-CREATE UNIQUE INDEX index_user_email ON user (email);
-CREATE INDEX index_lot_name ON lot (title);
-CREATE FULLTEXT INDEX index_lot_text ON lot (description);
-
-
+CREATE INDEX index_category_name ON categories (title);
+CREATE UNIQUE INDEX index_user_email ON users (email);
+CREATE INDEX index_lot_name ON lots (title);
+CREATE FULLTEXT INDEX index_lot_text ON lots (description);
