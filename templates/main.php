@@ -36,7 +36,7 @@
                     <div class="lot__state">
                         <div class="lot__rate">
                             <span class="lot__amount">
-                                <?=formatSumm($lot['price'])?>
+                                Стартовая цена
                             </span>
                             <span class="lot__cost">
                                 <?=formatSumm($lot['start_price'])?>

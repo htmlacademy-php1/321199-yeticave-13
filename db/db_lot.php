@@ -17,6 +17,5 @@ function get_lot(mysqli $db, string $id): array
         http_response_code(404);
         header('Location: /404.php');
     }
-
     return $result_lot->fetch_array(MYSQLI_ASSOC);
 }
