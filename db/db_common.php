@@ -11,4 +11,4 @@ function get_db(string $hostname, string $username, string $password, string $da
     }
 }
 
-$dbase = get_db('', '', '', '');
+$dbase = get_db('localhost', 'root', '', 'yeticave');

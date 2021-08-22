@@ -9,7 +9,7 @@
             <li class="promo__item promo__item--<?=$category['code']?>">
                 <a class="promo__link" href="pages/all-lots.html"><?=xssAdg($category['title'])?></a>
             </li>
-        <? endforeach; ?>
+        <?php endforeach; ?>
     </ul>
 </section>
 <section class="lots">
@@ -29,7 +29,7 @@
                             <?=xssAdg($lot['category_title'])?>
                     </span>
                     <h3 class="lot__title">
-                        <a class="text-link" href="pages/lot.html">
+                        <a class="text-link" href="<?='lot.php?id=' . $lot['id']?>">
                             <?=xssAdg($lot['title'])?>
                         </a>
                     </h3>
@@ -54,6 +54,6 @@
                         </div>
                     </div>
             </li>
-        <? endforeach ?>
+        <?php endforeach ?>
     </ul>
 </section>
