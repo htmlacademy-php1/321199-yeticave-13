@@ -2,32 +2,27 @@
     <ul class='nav__list container'>
         <?php foreach ($categories as $category): ?>
             <li class='nav__item'>
-                <a href='all-lots.html'> <?=xssAdg($category['title'])?></a>
+                <a href='all-lots.html'> <?= xssAdg($category['title']) ?></a>
             </li>
         <?php endforeach; ?>
     </ul>
 </nav>
 <section class='lot-item container'>
-    <h2> <?=$lot['title']?></h2>
+    <h2> <?= $lot['title'] ?></h2>
     <div class='lot-item__content'>
         <div class='lot-item__left'>
             <div class='lot-item__image'>
-                <img src='<?=$lot['img']?>' width='730' height='548' alt='<?=$lot['category_title']?>'>
+                <img src='<?= $lot['img'] ?>' width='730' height='548' alt='<?= $lot['category_title'] ?>'>
             </div>
-            <p class='lot-item__category'> Категория: <span> <?=$lot['category_title']?> </span></p>
-            <p class='lot-item__description'> <?=$lot['description']?></p>
+            <p class='lot-item__category'> Категория: <span> <?= $lot['category_title'] ?> </span></p>
+            <p class='lot-item__description'> <?= $lot['description'] ?></p>
         </div>
         <div class='lot-item__right'>
             <div class='lot-item__state'>
-                <?php
-                $range = formatTime($lot['completed_at']);
-                if ($range['hours'] == 0 && $range['minutes'] <= 60): ?>
-                <div class="lot-item__timer timer timer--finishing">
-                    <?php else: ?>
-                    <div class="lot-item__timer timer">
-                        <?php endif ?>
-                        <?=$range['hours'] . ':' . $range['minutes']?>
-                    </div>
+                <?php $range = formatTime($lot['completed_at']); ?>
+                <div class="lot-item__timer timer  <?= $range['hours'] == 0 ? 'timer--finishing' : '' ?> ">
+                    <?= $range['hours'] . ':' . $range['minutes'] ?>
+                </div>
                 <div class='lot-item__cost-state'>
                     <div class='lot-item__rate'>
                         <span class='lot-item__amount'> Текущая цена </span>

@@ -10,5 +10,3 @@ function get_db(string $hostname, string $username, string $password, string $da
         return $db;
     }
 }
-
-$dbase = get_db('localhost', 'root', '', 'yeticave');
