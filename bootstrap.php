@@ -1,10 +1,12 @@
 <?php
 require_once('params.php');
 require_once('helpers.php');
-require_once('routes.php');
-require_once('formatters.php');
-require_once('functions.php');
+require_once('functions/routes.php');
+require_once('functions/formatters.php');
+require_once('functions/functions.php');
+require_once('functions/validate.php');
 require_once('db/db_common.php');
 require_once('db/db_categories.php');
 require_once('db/db_lots.php');
 require_once('db/db_lot.php');
+require_once('db/db_add_lot.php');
