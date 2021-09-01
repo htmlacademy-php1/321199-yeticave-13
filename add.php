@@ -25,10 +25,9 @@
                 return validateDate('lot-date');
             },
             'message' => static function () {
-                return isCorrectLength('message', 20, 3000);
+                return validateLength('message', 20, 3000);
             },
         ];
-
         foreach ($_POST as $key => $value) {
             if (isset($rules[$key])) {
                 $rule = $rules[$key];
@@ -36,22 +35,12 @@
             }
         }
         $file_error = validateFile();
-
         if ($file_error) {
             $errors['lot-img'] = $file_error;
         }
-
         $errors = array_filter($errors);
-
-        if (!$errors) {
-            $stmt_result = add_lot($dbase, IMG_TITLE);
-            if ($stmt_result) {
-                uploadFile();
-                $new_lot_id = $dbase->insert_id;
-                header("Location: /lot.php?id=" . $new_lot_id);
-            }
-        }
     }
+    submitFormAddLot($errors, $dbase);
 
     $add_lot = include_template('add-lot.php', compact('categories', 'errors'));
     $layout_content = include_template('layout.php', [

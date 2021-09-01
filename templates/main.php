@@ -29,7 +29,7 @@
                             <?= xssAdg($lot['category_title']) ?>
                     </span>
                     <h3 class="lot__title">
-                        <a class="text-link" href="<?= get_lot_page_url($lot['id']) ?>">
+                        <a class="text-link" href="<?= create_url(PAGE_LOT_URL, ['id', $lot['id']]) ?>">
                             <?= xssAdg($lot['title']) ?>
                         </a>
                     </h3>

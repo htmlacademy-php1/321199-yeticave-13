@@ -1,15 +1,4 @@
-<nav class="nav">
-    <ul class="nav__list container">
-        <?php foreach ($categories as $category): ?>
-            <li class='nav__item'>
-                <a href='all-lots.html'> <?= xssAdg($category['title']) ?></a>
-            </li>
-        <?php endforeach; ?>
-    </ul>
-</nav>
-
-<form class="form form--add-lot container <?= isset($errors['lot-name']) ? "form--invalid" : '' ?> " action="add.php"
-      enctype="multipart/form-data" method="post">
+<form class="form form--add-lot container <?= (count($errors)>0) ? "form--invalid" : '' ?> " action="add.php" enctype="multipart/form-data" method="post">
     <!-- form--invalid -->
     <h2>Добавление лота</h2>
     <div class="form__container-two">

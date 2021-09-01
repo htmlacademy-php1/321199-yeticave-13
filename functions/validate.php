@@ -1,52 +1,80 @@
 <?php
 
     /**
-     * Функия проверки корректности email
-     * @param string $name
+     * Функция валидации email
+     * - проверка на корректность email
+     * - проверка на наличие email в базе данных
+     * - проверка на пустоту
+     * @param string $email
      * @return string|void
      */
-    function validateEmail(string $name)
+    function validateEmail(string $email, mysqli $db)
     {
-        if (!filter_input(INPUT_POST, $name, FILTER_VALIDATE_EMAIL)) {
+        if (empty($_POST[$email])) {
+            return validateEmpty($email, "Укажите вашу почту");
+        }
+        if (!filter_input(INPUT_POST, $email, FILTER_VALIDATE_EMAIL)) {
             return "Введите корректный email";
+        }
+        $result = $db->query("SELECT email FROM users WHERE email LIKE '%" . $_POST[$email] . "%'");
+        if ($result->num_rows > 0) {
+            return "Пользователь с таким email уже зарегестрирован";
         }
     }
 
     /**
-     * Функция проверки на отстутсвие категорий.
-     * @param string $name
+     * Валидация пароля
+     * - пароль должен быть не меньше 6 символов, состоящих из букв и цифр
+     * - пароль не может быть пустым
+     * @param $pass
      * @return string|void
      */
-    function validateCategory(string $name)
+    function validatePassword($pass)
     {
-        if (!$_POST[$name]) {
+        $preg_pass = "/^([0-9a-z]{6,})$/i";
+        if (empty($_POST[$pass])) {
+            return validateEmpty($pass, 'Придумайте пароль');
+        }
+        if (!preg_match($preg_pass, $_POST[$pass])) {
+            return "Пароль должен содержать не меньше 6 букв и цифр";
+        }
+    }
+
+    /**
+     * Функция проверки на отсутствие категорий.
+     * @param string $category
+     * @return string|void
+     */
+    function validateCategory(string $category)
+    {
+        if (!$_POST[$category]) {
             return "Выберите категорию";
         }
     }
 
     /**
      * Функция проверки поля на пустоту
-     * @param string $name
+     * @param string $title
      * @return string|void
      */
-    function validateEmpty(string $name)
+    function validateEmpty(string $title, $text = "Это поле должно быть заполнено")
     {
-        if (!$_POST[$name]) {
-            return "Это поле должно быть заполнено";
+        if (!$_POST[$title]) {
+            return $text;
         }
     }
 
     /**
      * Функция валидация числа
-     * - Проверка на символы числа, слова не допустимы
+     * - проверка на символы числа, слова не допустимы
      * - число должно быть больше ноля
      * - число не может быть пустым
-     * @param string $name
+     * @param string $title
      * @param string $num
      * @param string $field
      * @return string|void
      */
-    function validateNumber(string $name, string $num, string $field)
+    function validateNumber(string $title, string $num, string $field)
     {
         if ((!is_numeric($num) && !empty($num))) {
             return "Введите число";
@@ -54,20 +82,20 @@
         if (floatval($num) <= 0 && $num !== '') {
             return "$field должна быть больше ноля";
         }
-        return validateEmpty($name);
+        return validateEmpty($title);
     }
 
     /**
      *  Функция валидация ставки.
      * - ставка может быть только числом не меньше ноля
      * - проверка на пустоту
-     * @param string $name
+     * @param string $bet
      * @return string|void
      */
-    function validateStep(string $name)
+    function validateStep(string $bet)
     {
-        $post_number = $_POST[$name] ?? '';
-        return validateNumber($name, $post_number, 'Ставка');
+        $post_number = $_POST[$bet] ?? '';
+        return validateNumber($bet, $post_number, 'Ставка');
     }
 
     /**
@@ -75,13 +103,13 @@
      * - начальная цена может быть только числом не меньше ноля
      * - запятая в числах с плвающей точкой преобразуется в точку
      * - проверка на пустоту
-     * @param string $name
+     * @param string $price
      * @return string|void
      */
-    function validatePrice(string $name)
+    function validatePrice(string $price)
     {
-        $post_number = str_replace(',', '.', $_POST[$name] ?? '');
-        return validateNumber($name, $post_number, 'Цена');
+        $post_number = str_replace(',', '.', $_POST[$price] ?? '');
+        return validateNumber($price, $post_number, 'Цена');
     }
 
     /**
@@ -111,19 +139,19 @@
     }
 
     /**
-     * Функция валидации допустимости длины,
+     * Функция валидации длины символов,
      * также происходит проверка на пустоту.
-     * @param string $name
+     * @param string $title
      * @param int $min
      * @param int $max
      * @return string|void
      */
-    function isCorrectLength(string $name, int $min, int $max)
+    function validateLength(string $title, int $min, int $max)
     {
-        $text = xssAdg($_POST[$name]);
+        $text = xssAdg($_POST[$title]);
         $len = strlen($text);
         if ($len == 0) {
-            return validateEmpty($name);
+            return validateEmpty($title);
         }
         if ($len < $min || $len > $max) {
             return "Значение должно быть от $min до $max символов";

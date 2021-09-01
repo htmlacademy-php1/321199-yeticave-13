@@ -22,32 +22,42 @@
                 <input type="search" name="search" placeholder="Поиск лота">
                 <input class="main-header__search-btn" type="submit" name="find" value="Найти">
             </form>
-            <a class="main-header__add-lot button" href="add.php">Добавить лот</a>
+            <a class="main-header__add-lot button" href="<?= create_url(PAGE_ADD_LOT_URL) ?>">Добавить лот</a>
 
             <nav class="user-menu">
-                <?php if ( $is_auth ): ?>
-                    <div class="user-menu__logged">
-                        <p><?= $user_name ?></p>
-                        <a class="user-menu__bets" href="pages/my-bets.html">Мои ставки</a>
-                        <a class="user-menu__logout" href="#">Выход</a>
-                    </div>
-                <?php else: ?>
+                <?php if (!isset($_SESSION['user'])): ?>
                     <ul class="user-menu__list">
                         <li class="user-menu__item">
-                            <a href="#">Регистрация</a>
+                            <a href="<?= create_url(PAGE_SIGN_UP_URL) ?>">Регистрация</a>
                         </li>
                         <li class="user-menu__item">
-                            <a href="#">Вход</a>
+                            <a href="<?= create_url(PAGE_SIGN_IN_URL) ?>">Вход</a>
                         </li>
                     </ul>
+                <?php else: ?>
+                    <div class="user-menu__logged">
+                        <p><?=strip_tags($_SESSION['user']['name']); ?></p>
+                        <a class="user-menu__bets" href="<?= create_url(PAGE_MY_BETS_URL) ?>">Мои ставки</a>
+                        <a class="user-menu__logout" href="#">Выход</a>
+                    </div>
                 <?php endif ?>
                 <!-- здесь должен быть PHP код для показа меню и данных пользователя -->
             </nav>
         </div>
 
     </header>
-
     <main class="container">
+        <?php if ($_SERVER['REQUEST_URI'] !== '/'): ?>
+            <nav class="nav">
+                <ul class="nav__list container">
+                    <?php foreach ($categories as $category): ?>
+                        <li class='nav__item'>
+                            <a href='all-lots.html'> <?= xssAdg($category['title']) ?></a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </nav>
+        <? endif ?>
         <?= $content ?>
     </main>
 </div>
@@ -56,9 +66,9 @@
     <nav class="nav">
         <ul class="nav__list container">
             <!--заполните этот список из массива категорий-->
-            <?php foreach ( $categories as $category ): ?>
+            <?php foreach ($categories as $category): ?>
                 <li class="nav__item">
-                    <a href="pages/all-lots.html"><?= xssAdg( $category['title'] ) ?></a>
+                    <a href="pages/all-lots.html"><?= xssAdg($category['title']) ?></a>
                 </li>
             <?php endforeach; ?>
         </ul>
@@ -106,7 +116,7 @@
                 </svg>
             </a>
         </div>
-        <a class="main-footer__add-lot button" href="add-lot.html">Добавить лот</a>
+        <a class="main-footer__add-lot button" href="<?= create_url(PAGE_ADD_LOT_URL) ?>">Добавить лот</a>
         <div class="main-footer__developed-by">
             <span class="visually-hidden">Разработано:</span>
             <a class="logo-academy" href="https://htmlacademy.ru/intensive/php">

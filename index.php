@@ -1,7 +1,7 @@
 <?php
 
 require_once('bootstrap.php');
-$is_auth = rand(0, 1);
+$is_auth =0;
 $user_name = 'Виталий';
 $dbase = get_db(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 $lots = get_all_lots($dbase);
