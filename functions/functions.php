@@ -4,9 +4,9 @@ use JetBrains\PhpStorm\Pure;
 /**
  * Функция защиты от xss-атак
  * @param string $e
- * @return string
+ * @return string|false
  */
-function xssAdg(string $e): string
+function xssAdg(string $e): string|false
 {
     if (isset($_POST[$e])) {
         return htmlspecialchars($_POST[$e]);
