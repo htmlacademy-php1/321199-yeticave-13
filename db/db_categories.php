@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @param $db mysqli
  * @return array Возвращаем массив с категориями

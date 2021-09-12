@@ -25,7 +25,7 @@
             <a class="main-header__add-lot button" href="<?= create_url(PAGE_ADD_LOT_URL) ?>">Добавить лот</a>
 
             <nav class="user-menu">
-                <?php if (!isset($_SESSION['user'])): ?>
+                <?php if (!isset($_SESSION['user'])) : ?>
                     <ul class="user-menu__list">
                         <li class="user-menu__item">
                             <a href="<?= create_url(PAGE_SIGN_UP_URL) ?>">Регистрация</a>
@@ -34,7 +34,7 @@
                             <a href="<?= create_url(PAGE_SIGN_IN_URL) ?>">Вход</a>
                         </li>
                     </ul>
-                <?php else: ?>
+                <?php else : ?>
                     <div class="user-menu__logged">
                         <p><?=strip_tags($_SESSION['user']['name']); ?></p>
                         <a class="user-menu__bets" href="<?= create_url(PAGE_MY_BETS_URL) ?>">Мои ставки</a>
@@ -50,9 +50,9 @@
         <?php if ($_SERVER['REQUEST_URI'] !== '/'): ?>
             <nav class="nav">
                 <ul class="nav__list container">
-                    <?php foreach ($categories as $category): ?>
+                    <?php foreach ($categories as $category) : ?>
                         <li class='nav__item'>
-                            <a href='all-lots.html'> <?= xssAdg($category['title']) ?></a>
+                            <a href='all-lots.html'> <?= $category['title'] ?></a>
                         </li>
                     <?php endforeach; ?>
                 </ul>
@@ -66,9 +66,9 @@
     <nav class="nav">
         <ul class="nav__list container">
             <!--заполните этот список из массива категорий-->
-            <?php foreach ($categories as $category): ?>
+            <?php foreach ($categories as $category) : ?>
                 <li class="nav__item">
-                    <a href="pages/all-lots.html"><?= xssAdg($category['title']) ?></a>
+                    <a href="pages/all-lots.html"><?= $category['title'] ?></a>
                 </li>
             <?php endforeach; ?>
         </ul>

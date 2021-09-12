@@ -1,5 +1,4 @@
 <?php
-
 function get_db(string $hostname, string $username, string $password, string $database): mysqli
 {
     $db = new mysqli($hostname, $username, $password, $database);

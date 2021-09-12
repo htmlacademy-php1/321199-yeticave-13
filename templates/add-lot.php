@@ -1,4 +1,7 @@
-<form class="form form--add-lot container <?= (count($errors)>0) ? "form--invalid" : '' ?> " action="add.php" enctype="multipart/form-data" method="post">
+<form class="form form--add-lot container <?= (!empty($errors)) ? "form--invalid" : '' ?> "
+      action="add.php"
+      enctype="multipart/form-data"
+      method="post">
     <!-- form--invalid -->
     <h2>Добавление лота</h2>
     <div class="form__container-two">
@@ -6,15 +9,15 @@
         <div class="form__item <?= $classname ?>"> <!-- form__item--invalid -->
             <label for="lot-name">Наименование <sup>*</sup></label>
             <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота"
-                   value="<?= getPostVal('lot-name') ?>">
+                   value="<?= xssAdg('lot-name') ?>">
             <span class="form__error"><?= $errors['lot-name'] ?? '' ?></span>
         </div>
         <?php $classname = isset($errors['category']) ? "form__item--invalid" : '' ?>
         <div class="form__item <?= $classname ?>">
             <label for="category">Категория <sup>*</sup></label>
             <select id="category" name="category">
-                <?php foreach ($categories as $category): ?>
-                    <option value="<?= $category['id'] ?>"> <?= xssAdg($category['title']) ?></option>
+                <?php foreach ($categories as $category) : ?>
+                    <option value="<?= $category['id'] ?>"> <?= $category['title'] ?></option>
                 <?php endforeach; ?>
             </select>
             <span class="form__error"><?= $errors['category'] ?? '' ?></span>
@@ -41,20 +44,20 @@
         <?php $classname = isset($errors['lot-rate']) ? "form__item--invalid" : '' ?>
         <div class="form__item form__item--small <?= $classname ?>">
             <label for="lot-rate">Начальная цена <sup>*</sup></label>
-            <input id="lot-rate" type="text" name="lot-rate" placeholder="0" value="<?= getPostVal('lot-rate') ?>">
+            <input id="lot-rate" type="text" name="lot-rate" placeholder="0" value="<?= xssAdg('lot-rate') ?>">
             <span class="form__error"><?= $errors['lot-rate'] ?? '' ?></span>
         </div>
         <?php $classname = isset($errors['lot-step']) ? "form__item--invalid" : '' ?>
         <div class="form__item form__item--small <?= $classname ?>">
             <label for="lot-step">Шаг ставки <sup>*</sup></label>
-            <input id="lot-step" type="text" name="lot-step" placeholder="0" value="<?= getPostVal('lot-step') ?>">
+            <input id="lot-step" type="text" name="lot-step" placeholder="0" value="<?= xssAdg('lot-step') ?>">
             <span class="form__error"><?= $errors['lot-step'] ?? '' ?></span>
         </div>
         <?php $classname = isset($errors['lot-date']) ? "form__item--invalid" : '' ?>
         <div class="form__item <?= $classname ?>">
             <label for="lot-date">Дата окончания торгов <sup>*</sup></label>
             <input class="form__input-date" id="lot-date" type="text" name="lot-date"
-                   placeholder="Введите дату в формате ГГГГ-ММ-ДД" value="<?= getPostVal('lot-date') ?>">
+                   placeholder="Введите дату в формате ГГГГ-ММ-ДД" value="<?= xssAdg('lot-date') ?>">
             <span class="form__error"><?= $errors['lot-date'] ?? '' ?></span>
         </div>
     </div>
