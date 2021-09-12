@@ -1,8 +1,6 @@
 <?php
-
 require_once('bootstrap.php');
-$is_auth = rand(0, 1);
-$user_name = 'Виталий';
+
 $dbase = get_db(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
 $lots = get_all_lots($dbase);
 $categories = get_all_categories($dbase);
@@ -13,8 +11,8 @@ $layout_content = include_template(
     [
         'content' => $main,
         'title' => 'Главная',
-        'is_auth' => $is_auth,
-        'user_name' => $user_name,
+        'is_auth' => IS_AUTH,
+        'user_name' => USER_NAME,
         'categories' => $categories
     ]
 );
